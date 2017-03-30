@@ -36,8 +36,13 @@ namespace InventoryApp
                         lstInventory.Items.Add(addProd.Tag);
                         break;
                     case "delete":
-                        
-                        lstInventory.Items.RemoveAt(lstInventory.SelectedIndex); //remove selected item
+                        DialogResult button =
+                            MessageBox.Show(
+                                "Are you sure you want to delete this item?", "Delete Item!",
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Warning,
+                                MessageBoxDefaultButton.Button2);
+                        if(button == DialogResult.Yes) lstInventory.Items.RemoveAt(lstInventory.SelectedIndex); //remove selected item if user says yes
                         break;
                     case "update":
                         Form updateProd = new frmManageInventory();
