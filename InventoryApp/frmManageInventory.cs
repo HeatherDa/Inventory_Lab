@@ -74,7 +74,6 @@ namespace InventoryApp
                     default:
                         break;
                 }
-
                 txtTitle.Text = input[3].Trim();//get title data
                 txtCreator.Text = input[5].Trim();//get creator data
                 txtPrice.Text = input[7].Substring(2).Trim(); //get price data and take off $ sign  
