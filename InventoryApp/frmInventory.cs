@@ -36,25 +36,23 @@ namespace InventoryApp
                         lstInventory.Items.Add(addProd.Tag);
                         break;
                     case "delete":
-                        lstInventory.Items.RemoveAt(lstInventory.SelectedIndex);
+                        
+                        lstInventory.Items.RemoveAt(lstInventory.SelectedIndex); //remove selected item
                         break;
                     case "update":
                         Form updateProd = new frmManageInventory();
+                        int selectedIndex = lstInventory.SelectedIndex;
                         updateProd.Text = "Update Product";
-                        updateProd.Tag = lstInventory.Items[lstInventory.SelectedIndex].ToString();
-                        //MessageBox.Show(Convert.ToString(updateProd.Tag));
-                        updateProd.ShowDialog();
-                        lstInventory.Items.RemoveAt(lstInventory.SelectedIndex);
-                        lstInventory.Items.Add(updateProd.Tag);
+                        updateProd.Tag = lstInventory.Items[selectedIndex].ToString(); //pass data about selected item to new form
+                        updateProd.ShowDialog(); 
+                        lstInventory.Items.RemoveAt(lstInventory.SelectedIndex); //remove previous entry
+                        lstInventory.Items.Insert(selectedIndex, updateProd.Tag); //insert updated entry at same location as previous entry
                         break;
                     default:
                         break;
                 }
             }
-            catch
-            {
-                MessageBox.Show("Somthing Happened");
-            }
+            catch (Exception ex) { MessageBox.Show(ex.Message+"\n"+ ex.GetType().ToString(), "Exception!"); }
         }
     }
 }
