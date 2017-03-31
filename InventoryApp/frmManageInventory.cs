@@ -17,6 +17,35 @@ namespace InventoryApp
             InitializeComponent();
         }
 
+        private void frmManageInventory_Load(object sender, EventArgs e)
+        {
+            rdoBook.Select();
+            txtTitle.Focus();
+            string sentData = Convert.ToString(this.Tag);
+            if (sentData != "")
+            {
+                String[] input = sentData.Split(':', ';');
+                switch (input[1].Trim())
+                {
+                    case "Book":
+                        rdoBook.Select();
+                        break;
+                    case "Periodical":
+                        rdoPeriodical.Select();
+                        break;
+                    case "Album":
+                        rdoAlbum.Select();
+                        break;
+                    default:
+                        break;
+                }
+                txtTitle.Text = input[3].Trim();//get title data
+                txtCreator.Text = input[5].Trim();//get creator data
+                txtPrice.Text = input[7].Substring(2).Trim(); //get price data and take off $ sign  
+            }
+        }
+
+        //test
 
         int indexOfSelectedRdo = 0;
         string strSelectedRdo = "";
@@ -53,34 +82,6 @@ namespace InventoryApp
             }
         }
 
-        private void frmManageInventory_Load(object sender, EventArgs e)
-        {
-            rdoBook.Select();
-            txtTitle.Focus();
-            string sentData = Convert.ToString(this.Tag);
-            if (sentData != "")
-            {
-                String[] input= sentData.Split(':',';');
-                //MessageBox.Show(input[1]);
-                switch (input[1].Trim())
-                {
-                    case "Book":
-                        rdoBook.Select();
-                        break;
-                    case "Periodical":
-                        rdoPeriodical.Select();
-                        break;
-                    case "Album":
-                        rdoAlbum.Select(); 
-                        break;
-                    default:
-                        break;
-                }
-                txtTitle.Text = input[3].Trim();//get title data
-                txtCreator.Text = input[5].Trim();//get creator data
-                txtPrice.Text = input[7].Substring(2).Trim(); //get price data and take off $ sign  
-            }
-        }
 
         private void frmButton_Click(object sender, EventArgs e)
         {
@@ -89,40 +90,24 @@ namespace InventoryApp
             this.Close();
         }
 
-
-        //private void btnSave_Click(object sender, EventArgs e)
-        //{
-        //    Button btn = (Button)sender;
-        //    strBtnName = btn.Text;
-        //    this.Close();
-        //}
-
         private void saveProduct(string title, string creator, string price)
         {
-            //if (ValidData(title, creator, price))
-            //{
-                string strFormatedPrice = formatPrice(price);
-                this.Tag = "Type: " + strSelectedRdo +
-                    "; \t Title: " + title + "; \t " +
-                     lblCreator.Text + ": " + creator +
-                     "; \t Price: " + strFormatedPrice;
-            //}
+            string strFormatedPrice = formatPrice(price);
+            this.Tag = "Type: " + strSelectedRdo +
+                "; \t Title: " + title + "; \t " +
+                    lblCreator.Text + ": " + creator +
+                    "; \t Price: " + strFormatedPrice;
         }
 
         private bool ValidData(string title, string creator, string price)
         {
-            //MessageBox.Show("title: " + Convert.ToString(isPresent(title)));
-            //MessageBox.Show("creator: " + Convert.ToString(isPresent(creator)));
-            //MessageBox.Show("price: " + Convert.ToString(isPresent(price)));
             if ((titleIsValid(title)) &&
                 (creatorIsValid(creator)) &&
                 (priceIsValid(price))
                )
             {
-                //MessageBox.Show("All: true");
                 return true;
             }
-            //MessageBox.Show("All: false");
             return false;
         }
 
@@ -182,7 +167,6 @@ namespace InventoryApp
             }
         }
 
-
         private bool isPresent(string text)
         {
             if (text != "")
@@ -191,7 +175,6 @@ namespace InventoryApp
             }
             else
             {
-                //MessageBox.Show("All fields are required.  Please enter a value.");
                 return false;
             }
         }
@@ -208,7 +191,6 @@ namespace InventoryApp
             switch (strBtnName)
             {
                 case "Cancel":
-                    //MessageBox.Show(strBtnName);
                     if (isPresent(txtTitle.Text) || isPresent(txtCreator.Text) || isPresent(txtPrice.Text))
                     {
                         DialogResult button =
