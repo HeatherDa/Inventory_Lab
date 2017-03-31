@@ -18,9 +18,14 @@ namespace InventoryApp
             InitializeComponent();
         }
 
-        string fileName = "";
+        bool newFile = true;
+        bool saved = true;
+        string strSaved = "";
+        string fileName = "new";
         string docPath = "";
         string fullPath = "";
+        string frmName = "Book Store Inventory - ";
+
 
         private void btnExit_Click(object sender, EventArgs e)
         {
@@ -39,6 +44,7 @@ namespace InventoryApp
                         addProd.Text = "Add Product";
                         addProd.ShowDialog();
                         lstInventory.Items.Add(addProd.Tag);
+                        updateSaved(false);
                         break;
                     case "delete":
                         DialogResult button =
@@ -48,6 +54,7 @@ namespace InventoryApp
                                 MessageBoxIcon.Warning,
                                 MessageBoxDefaultButton.Button2);
                         if(button == DialogResult.Yes) lstInventory.Items.RemoveAt(lstInventory.SelectedIndex); //remove selected item if user says yes
+                        updateSaved(false);
                         break;
                     case "update":
                         Form updateProd = new frmManageInventory();
@@ -57,6 +64,7 @@ namespace InventoryApp
                         updateProd.ShowDialog(); 
                         lstInventory.Items.RemoveAt(lstInventory.SelectedIndex); //remove previous entry
                         lstInventory.Items.Insert(selectedIndex, updateProd.Tag); //insert updated entry at same location as previous entry
+                        updateSaved(false);
                         break;
                     default:
                         break;
@@ -68,15 +76,31 @@ namespace InventoryApp
             }
         }
 
+        private void updateSaved(bool v)
+        {
+            if (v)
+            {
+                saved = true;
+                strSaved = "";
+            }
+            else
+            {
+                saved = false;
+                strSaved = "*";
+            }
+            updateTitleBar();
+        }
+
         private void menuItmSave_Click(object sender, EventArgs e)
         {
-            if (fileName != "")
+            if (!newFile)
             {
                 saveInventory();
             }
             else
             {
                 saveInventoryAs();
+                newFile = false;
             }
 
         }
@@ -101,6 +125,7 @@ namespace InventoryApp
                 foreach (string line in arrInventoyLines)
                     outputFile.WriteLine(line);
             }
+            updateSaved(true);
         }
         private void saveInventoryAs()
         {
@@ -128,12 +153,14 @@ namespace InventoryApp
                     foreach (string line in arrInventoyLines)
                         outputFile.WriteLine(line);
                 }
-            }
+            updateSaved(true);
+        }
 
         private async void loadInventory()
         {
             OpenFileDialog loadInv = new OpenFileDialog();
             loadInv.ShowDialog();
+
 
             fileName = loadInv.FileName;
             docPath = System.IO.Path.GetDirectoryName(fileName) + @"\";
@@ -156,10 +183,22 @@ namespace InventoryApp
                 resultText = "Could not read the file";
             }
 
+            lstInventory.Items.Clear();
 
+            string[] arrLoadedItems = resultText.Split('※');
+            string[] arrTrimedItems = new string[arrLoadedItems.Length - 1];
 
-
-            MessageBox.Show(resultText);
+            for (int i = 0; i < arrTrimedItems.Length; i++)
+            {
+                arrTrimedItems[i] = arrLoadedItems[i];
+            }
+            foreach (var item in arrTrimedItems)
+            {
+                if (item != "")
+                lstInventory.Items.Add(item);
+            }
+            newFile = false;
+            updateTitleBar();
         }
 
 
@@ -175,5 +214,34 @@ namespace InventoryApp
             }
             return lines;
         }
-   }
+
+        private void frmBookStoreInventory_Load(object sender, EventArgs e)
+        {
+            updateTitleBar();
+        }
+
+        private void updateTitleBar()
+        {
+            this.Text = frmName + fileName + strSaved;
+        }
+
+        private void frmBookStoreInventory_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!saved)
+            {
+                DialogResult result =
+                MessageBox.Show
+                (
+                    "Exit without saving?", "Exit?",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Exclamation,
+                    MessageBoxDefaultButton.Button2
+                );
+                if (result == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
+    }
 }

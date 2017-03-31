@@ -45,8 +45,6 @@ namespace InventoryApp
             }
         }
 
-        //test
-
         int indexOfSelectedRdo = 0;
         string strSelectedRdo = "";
         string strBtnName = "";

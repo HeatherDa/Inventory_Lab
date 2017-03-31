@@ -157,6 +157,8 @@
             this.MinimizeBox = false;
             this.Name = "frmBookStoreInventory";
             this.Text = "Book Store Inventory";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmBookStoreInventory_FormClosing);
+            this.Load += new System.EventHandler(this.frmBookStoreInventory_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
