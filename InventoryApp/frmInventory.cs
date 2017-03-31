@@ -117,15 +117,18 @@ namespace InventoryApp
         // Functions for saving/loading the inventory list
         private void saveInventory()
         {
-            string[] arrInventoyLines = new string[lstInventory.Items.Count];
-            arrInventoyLines = getInventoryLines(lstInventory.Items);
-
-            using (StreamWriter outputFile = new StreamWriter(docPath + @"\" + fileName))
+            if (fileName != "new")
             {
-                foreach (string line in arrInventoyLines)
-                    outputFile.WriteLine(line);
+                string[] arrInventoyLines = new string[lstInventory.Items.Count];
+                arrInventoyLines = getInventoryLines(lstInventory.Items);
+
+                using (StreamWriter outputFile = new StreamWriter(docPath + @"\" + fileName))
+                {
+                    foreach (string line in arrInventoyLines)
+                        outputFile.WriteLine(line);
+                }
+                updateSaved(true);
             }
-            updateSaved(true);
         }
         private void saveInventoryAs()
         {
@@ -147,13 +150,14 @@ namespace InventoryApp
                 fileName = fileName.Substring(docPath.Length);
                 fullPath = docPath + fileName;
                 //MessageBox.Show(fileName + "\n" + docPath + "\n" + fullPath);
-            }
+            //}
             using (StreamWriter outputFile = new StreamWriter(docPath + @"\" + fileName))
                 {
                     foreach (string line in arrInventoyLines)
                         outputFile.WriteLine(line);
                 }
-            updateSaved(true);
+            updateSaved(true);   
+            }
         }
 
         private async void loadInventory()
