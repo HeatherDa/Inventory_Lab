@@ -160,12 +160,13 @@ namespace InventoryApp
         {
             OpenFileDialog loadInv = new OpenFileDialog();
             loadInv.ShowDialog();
-
-
-            fileName = loadInv.FileName;
-            docPath = System.IO.Path.GetDirectoryName(fileName) + @"\";
-            fileName = fileName.Substring(docPath.Length);
-            fullPath = docPath + fileName;
+            if (loadInv.FileName != "")
+            {
+                fileName = loadInv.FileName;
+                docPath = System.IO.Path.GetDirectoryName(fileName) + @"\";
+                fileName = fileName.Substring(docPath.Length);
+                fullPath = docPath + fileName;
+            }
 
             string resultText = "";
 
