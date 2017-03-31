@@ -36,8 +36,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItmSave = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemLoad = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItmSaveAs = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemLoad = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -119,13 +119,7 @@
             this.menuItmSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.menuItmSave.Size = new System.Drawing.Size(186, 22);
             this.menuItmSave.Text = "Save";
-            // 
-            // menuItemLoad
-            // 
-            this.menuItemLoad.Name = "menuItemLoad";
-            this.menuItemLoad.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
-            this.menuItemLoad.Size = new System.Drawing.Size(186, 22);
-            this.menuItemLoad.Text = "Load";
+            this.menuItmSave.Click += new System.EventHandler(this.menuItmSave_Click);
             // 
             // menuItmSaveAs
             // 
@@ -134,6 +128,15 @@
             | System.Windows.Forms.Keys.S)));
             this.menuItmSaveAs.Size = new System.Drawing.Size(186, 22);
             this.menuItmSaveAs.Text = "Save As";
+            this.menuItmSaveAs.Click += new System.EventHandler(this.menuItmSaveAs_Click);
+            // 
+            // menuItemLoad
+            // 
+            this.menuItemLoad.Name = "menuItemLoad";
+            this.menuItemLoad.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
+            this.menuItemLoad.Size = new System.Drawing.Size(186, 22);
+            this.menuItemLoad.Text = "Load";
+            this.menuItemLoad.Click += new System.EventHandler(this.menuItemLoad_Click);
             // 
             // frmBookStoreInventory
             // 

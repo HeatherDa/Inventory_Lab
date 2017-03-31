@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,10 @@ namespace InventoryApp
         {
             InitializeComponent();
         }
+
+        string fileName = "";
+        string docPath = "";
+        string fullPath = "";
 
         private void btnExit_Click(object sender, EventArgs e)
         {
@@ -62,5 +67,113 @@ namespace InventoryApp
             //    MessageBox.Show(ex.Message+"\n"+ ex.GetType().ToString(), "Exception!");
             }
         }
-    }
+
+        private void menuItmSave_Click(object sender, EventArgs e)
+        {
+            if (fileName != "")
+            {
+                saveInventory();
+            }
+            else
+            {
+                saveInventoryAs();
+            }
+
+        }
+        private void menuItmSaveAs_Click(object sender, EventArgs e)
+        {
+            saveInventoryAs();
+        }
+
+        private void menuItemLoad_Click(object sender, EventArgs e)
+        {
+            loadInventory();
+        }
+
+        // Functions for saving/loading the inventory list
+        private void saveInventory()
+        {
+            string[] arrInventoyLines = new string[lstInventory.Items.Count];
+            arrInventoyLines = getInventoryLines(lstInventory.Items);
+
+            using (StreamWriter outputFile = new StreamWriter(docPath + @"\" + fileName))
+            {
+                foreach (string line in arrInventoyLines)
+                    outputFile.WriteLine(line);
+            }
+        }
+        private void saveInventoryAs()
+        {
+            string[] arrInventoyLines = new string[lstInventory.Items.Count];
+            arrInventoyLines = getInventoryLines(lstInventory.Items);
+
+            SaveFileDialog saveAS = new SaveFileDialog();
+            saveAS.Filter = "Inventory File|*.txt";
+            saveAS.Title = "Save an Inventory File";
+            saveAS.ShowDialog();
+            if (saveAS.FileName != "")
+            {
+                fileName = saveAS.FileName;
+                if (!fileName.Contains(".txt"))
+                {
+                    fileName += ".txt";
+                }
+                docPath = System.IO.Path.GetDirectoryName(fileName) + @"\";
+                fileName = fileName.Substring(docPath.Length);
+                fullPath = docPath + fileName;
+                //MessageBox.Show(fileName + "\n" + docPath + "\n" + fullPath);
+            }
+            using (StreamWriter outputFile = new StreamWriter(docPath + @"\" + fileName))
+                {
+                    foreach (string line in arrInventoyLines)
+                        outputFile.WriteLine(line);
+                }
+            }
+
+        private async void loadInventory()
+        {
+            OpenFileDialog loadInv = new OpenFileDialog();
+            loadInv.ShowDialog();
+
+            fileName = loadInv.FileName;
+            docPath = System.IO.Path.GetDirectoryName(fileName) + @"\";
+            fileName = fileName.Substring(docPath.Length);
+            fullPath = docPath + fileName;
+
+            string resultText = "";
+
+            try
+            {
+                using (StreamReader inventory = new StreamReader(fullPath))
+                {
+                    String line = await inventory.ReadToEndAsync();
+                    resultText += line;
+                    resultText += "\n";
+                }
+            }
+            catch (Exception)
+            {
+                resultText = "Could not read the file";
+            }
+
+
+
+
+            MessageBox.Show(resultText);
+        }
+
+
+        private string[] getInventoryLines(ListBox.ObjectCollection items)
+        {
+            string[] lines = new string[items.Count];
+            int i = 0;
+            foreach (var item in items)
+            {
+                lines[i] = item.ToString();
+                lines[i] += "※";
+                i++;
+            }
+            return lines;
+        }
+   }
 }
