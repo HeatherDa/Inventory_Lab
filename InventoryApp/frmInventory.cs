@@ -57,7 +57,10 @@ namespace InventoryApp
                         break;
                 }
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message+"\n"+ ex.GetType().ToString(), "Exception!"); }
+            catch (Exception)
+            {
+            //    MessageBox.Show(ex.Message+"\n"+ ex.GetType().ToString(), "Exception!");
+            }
         }
     }
 }

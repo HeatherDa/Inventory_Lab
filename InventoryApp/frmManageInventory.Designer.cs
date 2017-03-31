@@ -154,7 +154,7 @@
             this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.frmButton_Click);
             // 
             // btnSave
             // 
@@ -164,7 +164,7 @@
             this.btnSave.TabIndex = 9;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnSave.Click += new System.EventHandler(this.frmButton_Click);
             // 
             // frmManageInventory
             // 
@@ -187,6 +187,7 @@
             this.MinimizeBox = false;
             this.Name = "frmManageInventory";
             this.Text = "Manage Inventory";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmManageInventory_FormClosing);
             this.Load += new System.EventHandler(this.frmManageInventory_Load);
             this.grpProductType.ResumeLayout(false);
             this.grpProductType.PerformLayout();
