@@ -32,6 +32,8 @@ namespace InventoryApp
             this.Close();
         }
 
+        // testtesttest
+
         private void ProductButton_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
