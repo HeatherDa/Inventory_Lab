@@ -56,7 +56,7 @@
             this.btnAddProduct.Size = new System.Drawing.Size(131, 23);
             this.btnAddProduct.TabIndex = 1;
             this.btnAddProduct.Tag = "add";
-            this.btnAddProduct.Text = "Add Product";
+            this.btnAddProduct.Text = "A&dd Product";
             this.btnAddProduct.UseVisualStyleBackColor = true;
             this.btnAddProduct.Click += new System.EventHandler(this.ProductButton_Click);
             // 
@@ -65,9 +65,9 @@
             this.btnDeleteProduct.Location = new System.Drawing.Point(562, 85);
             this.btnDeleteProduct.Name = "btnDeleteProduct";
             this.btnDeleteProduct.Size = new System.Drawing.Size(131, 23);
-            this.btnDeleteProduct.TabIndex = 2;
+            this.btnDeleteProduct.TabIndex = 3;
             this.btnDeleteProduct.Tag = "delete";
-            this.btnDeleteProduct.Text = "Delete Product";
+            this.btnDeleteProduct.Text = "De&lete Product";
             this.btnDeleteProduct.UseVisualStyleBackColor = true;
             this.btnDeleteProduct.Click += new System.EventHandler(this.ProductButton_Click);
             // 
@@ -77,19 +77,20 @@
             this.btnExit.Location = new System.Drawing.Point(562, 114);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(131, 23);
-            this.btnExit.TabIndex = 3;
-            this.btnExit.Text = "Exit";
+            this.btnExit.TabIndex = 4;
+            this.btnExit.Tag = "quit";
+            this.btnExit.Text = "E&xit";
             this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            this.btnExit.Click += new System.EventHandler(this.ProductButton_Click);
             // 
             // btnUpdateProduct
             // 
             this.btnUpdateProduct.Location = new System.Drawing.Point(562, 56);
             this.btnUpdateProduct.Name = "btnUpdateProduct";
             this.btnUpdateProduct.Size = new System.Drawing.Size(131, 23);
-            this.btnUpdateProduct.TabIndex = 4;
+            this.btnUpdateProduct.TabIndex = 2;
             this.btnUpdateProduct.Tag = "update";
-            this.btnUpdateProduct.Text = "Update Product";
+            this.btnUpdateProduct.Text = "&Update Product";
             this.btnUpdateProduct.UseVisualStyleBackColor = true;
             this.btnUpdateProduct.Click += new System.EventHandler(this.ProductButton_Click);
             // 

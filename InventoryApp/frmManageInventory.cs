@@ -17,6 +17,9 @@ namespace InventoryApp
             InitializeComponent();
         }
 
+
+        // tests if data is sent form frmInventroy then if data is present
+        // parses data and propigates form
         private void frmManageInventory_Load(object sender, EventArgs e)
         {
             rdoBook.Select();
@@ -45,10 +48,13 @@ namespace InventoryApp
             }
         }
 
+        // sets form wide variables
         int indexOfSelectedRdo = 0;
         string strSelectedRdo = "";
         string strBtnName = "";
 
+        // iterates over collection of rado buttopns to dertimine state and updates
+        // variables based on state
         private void rdoProduct_Select(object sender, EventArgs e)
         {
             foreach (RadioButton rdo in grpProductType.Controls)
@@ -62,6 +68,8 @@ namespace InventoryApp
             updateProductForm(indexOfSelectedRdo);
         }
 
+        // called when state of rasio buttons changes
+        // updates name of the creator label
         private void updateProductForm(int selectedRdo)
         {
             switch (selectedRdo)
@@ -80,7 +88,9 @@ namespace InventoryApp
             }
         }
 
-
+        // closes form when any button of form is clicked
+        // updates the strBtnName string variable  to the text on the sending button
+        // so that the functions called during the form close event can use the variable
         private void frmButton_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
@@ -88,6 +98,8 @@ namespace InventoryApp
             this.Close();
         }
 
+        // function to create a string based off the data in the txtBoxes then 
+        // save the string in to the Tag attribute of the form
         private void saveProduct(string title, string creator, string price)
         {
             string strFormatedPrice = formatPrice(price);
@@ -97,6 +109,8 @@ namespace InventoryApp
                     "; \t Price: " + strFormatedPrice;
         }
 
+
+        // function used to validate the data in the txtBoxes
         private bool ValidData(string title, string creator, string price)
         {
             if ((titleIsValid(title)) &&
@@ -109,6 +123,7 @@ namespace InventoryApp
             return false;
         }
 
+        // function called by the ValidData() function to validate the price txtBox
         private bool priceIsValid(string price)
         {
             if (isPresent(price))
@@ -123,6 +138,7 @@ namespace InventoryApp
             }
         }
 
+        // function called by the ValidData() function to validate the creator txtBox
         private bool creatorIsValid(string creator)
         {
             if (isPresent(creator))
@@ -137,6 +153,7 @@ namespace InventoryApp
             }
         }
 
+        // function called by the ValidData() function to validate the title txtBox
         private bool titleIsValid(string title)
         {
             if (isPresent(title))
@@ -151,6 +168,7 @@ namespace InventoryApp
             }
         }
 
+        // function called by the priceIsValid() function to validate the price txtBox is a decimal
         private bool isDecimal(string text)
         {
             decimal number = 0m;
@@ -165,6 +183,7 @@ namespace InventoryApp
             }
         }
 
+        // function called by the various validation methods to determine if the txtBoxes have text in them
         private bool isPresent(string text)
         {
             if (text != "")
@@ -177,6 +196,7 @@ namespace InventoryApp
             }
         }
 
+        // function to take a sting of numbers and format them as currency
         private string formatPrice(string strPrice)
         {
             decimal decPrice = Convert.ToDecimal(strPrice);
@@ -184,6 +204,7 @@ namespace InventoryApp
             return strFormatedPrice;
         }
 
+        // function that calls other functions when the form closing event is triggered
         private void frmManageInventory_FormClosing(object sender, FormClosingEventArgs e)
         {
             switch (strBtnName)
